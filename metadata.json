@@ -1,0 +1,6 @@
+{
+  "name": "COSELEEC",
+  "description": "COSELEEC - Électricien à Tourcoing (59), électricité, courants faibles et second œuvre",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
