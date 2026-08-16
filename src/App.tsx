@@ -11,9 +11,34 @@ import { WhatsAppFab } from './components/WhatsAppFab';
 const LIGHT_IMG = '/images/hero-light.webp';
 const DARK_IMG = '/images/hero-dark.webp';
 
-// Signal de confiance haut de page, volontairement réduit à la note : les
-// verbatims vivent dans la section « Avis » juste avant la FAQ, les répéter
-// ici ferait doublon. Le lien mène à cette section.
+// Signal de confiance haut de page. La note affichée est celle de Google
+// (4,9/5 sur 40 avis, la plus solide) ; les citations viennent d'AlloVoisins,
+// seule source dont les verbatims sont récupérables en texte. Elles sont
+// reproduites MOT POUR MOT, fautes de frappe comprises.
+//
+// Seuls les avis 5 étoiles figurent ici. Le 4e avis AlloVoisins (4/5, qui
+// juge le devis trop cher) n'y est pas — mais il n'est pas dissimulé pour
+// autant : le lien mène à la page source où les 4 sont visibles, et une
+// question de la FAQ le traite de front.
+const ALLOVOISINS_URL = 'https://www.allovoisins.com/p/coseleec';
+
+const ALLOVOISINS_REVIEWS = [
+  {
+    author: 'Keverly D.',
+    date: 'mars 2023',
+    text: "Je suis ravie du travail effectuer par Aurélien. Ponctuelle, professionnel, à l'écoute, et honnête. Il a fourni un travail d'électricité de qualité, avec un prix abordable. Je recommande sans problème Aurélien.",
+  },
+  {
+    author: 'Samantha B.',
+    date: 'mars 2023',
+    text: 'tres implique dans son travail Va au bout des choses Aime le travail bien fait',
+  },
+  {
+    author: 'Assi L.',
+    date: 'janvier 2023',
+    text: "Un monsieur qui semble être professionnel et avoir des compétences avec photo à l'appuie je recommande",
+  },
+];
 
 export default function App() {
   const [isDark, setIsDark] = useState<boolean>(true);
@@ -175,6 +200,25 @@ export default function App() {
           <a href="#avis" onClick={scrollToId('avis')}>Lire les avis&nbsp;↓</a>
         </span>
       </div>
+
+      <div className="reviews-grid">
+        {ALLOVOISINS_REVIEWS.map((r) => (
+          <figure key={r.author} className="review-card">
+            <div className="review-stars" aria-label="5 étoiles sur 5">★★★★★</div>
+            <blockquote>{r.text}</blockquote>
+            <figcaption>
+              {r.author} <span>· {r.date}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+
+      <p className="reviews-source">
+        Avis publiés sur AlloVoisins.{' '}
+        <a href={ALLOVOISINS_URL} target="_blank" rel="noopener noreferrer">
+          Voir la fiche et tous les avis&nbsp;↗
+        </a>
+      </p>
     </section>
 
     <SynapseSection />

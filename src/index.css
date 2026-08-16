@@ -910,8 +910,72 @@ body.light-theme .hero-footer {
   border-bottom-color: currentColor;
 }
 
-.reviews-head {
-  margin-bottom: 0;
+/* Citations AlloVoisins sous la note Google. Cartes claires posées sur le
+   bandeau blanc : c'est le liseré qui les détache, pas un contraste de fond. */
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(14px, 2vw, 24px);
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.review-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: clamp(18px, 2vw, 24px);
+  border: 1px solid rgba(3, 9, 15, 0.09);
+  border-radius: 16px;
+  background: rgba(3, 9, 15, 0.02);
+}
+
+.review-stars {
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: #ffc043;
+}
+
+.review-card blockquote {
+  flex: 1;
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(3, 9, 15, 0.72);
+}
+
+.review-card figcaption {
+  font-size: 12px;
+  font-weight: 600;
+  color: #05121c;
+}
+
+.review-card figcaption span {
+  font-weight: 400;
+  color: rgba(3, 9, 15, 0.4);
+}
+
+.reviews-source {
+  margin: clamp(18px, 2.5vw, 26px) auto 0;
+  text-align: center;
+  font-size: 12.5px;
+  color: rgba(3, 9, 15, 0.45);
+}
+
+.reviews-source a {
+  color: #1173b8;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(17, 115, 184, 0.32);
+  white-space: nowrap;
+}
+
+.reviews-source a:hover {
+  border-bottom-color: currentColor;
+}
+
+@media (max-width: 900px) {
+  .reviews-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Tablet / small laptop: the longer French nav links need less gap and a
