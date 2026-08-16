@@ -1213,20 +1213,16 @@ body.light-theme .hero-footer {
   text-align: right;
 }
 
-/* La vidéo n'étant plus voilée, chaque bloc de TEXTE porte sa propre plaque
-   translucide. Le fond reste visible à 100 % partout ailleurs — c'est le
-   compromis qui préserve le rush intact sans sacrifier la lecture. */
+/* AUCUN cartouche derrière le texte : la vidéo doit rester visible à 100 %.
+   La lisibilité passe uniquement par le glyphe — contour sombre peint DESSOUS
+   (`paint-order`, sinon il rongerait l'intérieur de la lettre) + halos. */
 .synapse-hero-desc {
   max-width: 480px;
-  padding: 20px 22px;
-  border-radius: 16px;
-  background: rgba(3, 9, 15, 0.62);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
   font-size: 15px;
   font-weight: 700;
   color: #ffffff;
+  paint-order: stroke fill;
+  -webkit-text-stroke: 3px rgba(3, 9, 15, 0.82);
   line-height: 1.625;
   text-shadow:
     0 0 30px rgba(3, 9, 15, 0.98),
@@ -1267,12 +1263,7 @@ body.light-theme .hero-footer {
   gap: 1.5rem;
   max-width: 56rem;
   margin: 0 auto;
-  padding: 32px clamp(18px, 3vw, 34px);
-  border-radius: 22px;
-  background: rgba(3, 9, 15, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.09);
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  padding: 0 1rem;
 }
 
 /* `text-shadow` est sans effet sur un texte rempli par `background-clip: text`
@@ -1280,12 +1271,17 @@ body.light-theme .hero-footer {
    de titre en dégradé perdrait donc son détourage : `drop-shadow`, lui, suit
    la forme peinte. */
 .synapse .accent-volt {
-  /* `text-shadow` doit être ANNULÉ ici : le glyphe étant transparent (rempli
-     par `background-clip: text`), l'ombre héritée du h2 se voit À TRAVERS la
-     lettre et la noircit. Seul `drop-shadow`, qui suit la forme peinte,
-     convient. */
+  /* Le glyphe est transparent (rempli par `background-clip: text`) : tout ce
+     qui se peint DANS la lettre s'y voit. Il faut donc annuler l'ombre ET le
+     contour hérités du h2, sinon le dégradé bleu vire au noir. Seul
+     `drop-shadow`, qui suit la forme peinte, convient — on l'épaissit pour
+     compenser le contour perdu. */
   text-shadow: none;
-  filter: drop-shadow(0 1px 10px rgba(3, 9, 15, 0.9)) drop-shadow(0 1px 2px rgba(3, 9, 15, 0.8));
+  -webkit-text-stroke: 0;
+  filter:
+    drop-shadow(0 0 14px rgba(3, 9, 15, 0.95))
+    drop-shadow(0 1px 4px rgba(3, 9, 15, 0.95))
+    drop-shadow(0 0 1.5px rgba(3, 9, 15, 0.9));
 }
 
 .synapse-cinematic-inner h2 {
@@ -1294,10 +1290,12 @@ body.light-theme .hero-footer {
   color: #fff;
   line-height: 1.35;
   letter-spacing: -0.02em;
+  paint-order: stroke fill;
+  -webkit-text-stroke: 3px rgba(3, 9, 15, 0.58);
   text-shadow:
-    0 0 38px rgba(3, 9, 15, 0.95),
-    0 2px 16px rgba(3, 9, 15, 0.9),
-    0 1px 3px rgba(3, 9, 15, 0.95);
+    0 0 38px rgba(3, 9, 15, 0.9),
+    0 2px 16px rgba(3, 9, 15, 0.85),
+    0 1px 3px rgba(3, 9, 15, 0.9);
   user-select: none;
   padding: 0 24px;
 }
@@ -1307,6 +1305,8 @@ body.light-theme .hero-footer {
   color: #ffffff;
   font-weight: 700;
   line-height: 1.7;
+  paint-order: stroke fill;
+  -webkit-text-stroke: 3px rgba(3, 9, 15, 0.82);
   text-shadow:
     0 0 30px rgba(3, 9, 15, 0.98),
     0 1px 12px rgba(3, 9, 15, 0.95),
